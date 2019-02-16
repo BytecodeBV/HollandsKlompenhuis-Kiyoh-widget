@@ -25,10 +25,19 @@ const getFeedJson = async () => {
     return jsonData;
 };
 
+const generateScoreText = scoreObj => {
+    const { title, score } = scoreObj;
+    return `${title}: ${score}`;
+};
+
 class App extends Component {
     constructor() {
         super();
+        this.state = {
+            scores: null,
+        };
         this.loadDataIntoState = this.loadDataIntoState.bind(this);
+        this.printScores = this.printScores.bind(this);
     }
 
     componentDidMount() {
@@ -42,9 +51,22 @@ class App extends Component {
         this.setState({ scores: averages });
     }
 
+    printScores() {
+        const scores = this.state.scores;
+
+        if (!scores) {
+            return 'Loading...';
+        }
+
+        const filteredScores = scores.filter(score => score.score > 0);
+        return filteredScores.map(score => {
+            return generateScoreText(score);
+        });
+    }
+
     render() {
         return (
-            <div>Working!</div>
+            <div>{ this.printScores() }</div>
         );
     }
 }
