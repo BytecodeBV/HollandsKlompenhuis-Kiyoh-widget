@@ -35,6 +35,7 @@ class App extends Component {
         super();
         this.state = {
             scores: null,
+            currentID: 0,
         };
         this.loadDataIntoState = this.loadDataIntoState.bind(this);
         this.printScores = this.printScores.bind(this);
@@ -42,13 +43,20 @@ class App extends Component {
 
     componentDidMount() {
         this.loadDataIntoState();
+        this.timeout = setInterval(() => {
+            let currentID = this.state.currentID;
+            let nextID = ++currentID;
+            this.setState({ currentID: nextID });
+        }, 1500);
     }
 
     async loadDataIntoState() {
         const jsonData = await getFeedJson();
         const averages
             = jsonData.default.company.average_scores.questions.question;
-        this.setState({ scores: averages });
+        const filteredScores = averages.filter(score => score.score > 0);
+        const scores = filteredScores.map(score => generateScoreText(score));
+        this.setState({ scores });
     }
 
     printScores() {
@@ -58,15 +66,18 @@ class App extends Component {
             return 'Loading...';
         }
 
-        const filteredScores = scores.filter(score => score.score > 0);
-        return filteredScores.map(score => {
-            return generateScoreText(score);
-        });
+        const scoresLength = scores.length;
+        const currentID = this.state.currentID;
+        const changingText = scores[currentID % scoresLength];
+        return changingText;
     }
 
     render() {
         return (
-            <div>{ this.printScores() }</div>
+            <div>
+                Als beste beoordeeld!&nbsp;
+                { this.printScores() }
+            </div>
         );
     }
 }
