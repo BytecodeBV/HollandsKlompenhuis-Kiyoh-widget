@@ -1,28 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const feedUrl = 'https://www.kiyoh.nl/xml/recent_company_reviews.xml?connectorcode=ee4810d178ce427d97a&company_id=4235&reviewcount=all&showextraquestions=1';
+
+const App = () => {
+    return (<div>Test</div>);
+};
 
 export default App;
