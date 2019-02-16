@@ -83,6 +83,7 @@ class App extends Component {
                 <i className="fa fa-star" aria-hidden="true"></i>
                 <i className="fa fa-star" aria-hidden="true"></i>
                 <i className="fa fa-star" aria-hidden="true"></i>
+                <i className="fa fa-star-half" aria-hidden="true"></i>
                 &nbsp;Als beste beoordeeld!&nbsp;
                 { /* this.printScores() */ }
                 { this.state.total }/10
