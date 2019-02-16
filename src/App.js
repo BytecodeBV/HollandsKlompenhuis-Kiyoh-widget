@@ -51,6 +51,11 @@ class App extends Component {
 
     async loadDataIntoState() {
         const jsonData = await getFeedJson();
+        // Total
+        const total = jsonData.default.company.total_score;
+        this.setState({ total });
+
+        // Average scores
         const averages
             = jsonData.default.company.average_scores.questions.question;
         const filteredScores = averages.filter(score => score.score > 0);
@@ -74,8 +79,13 @@ class App extends Component {
     render() {
         return (
             <div>
-                Als beste beoordeeld!&nbsp;
-                { this.printScores() }
+                <i className="fa fa-star" aria-hidden="true"></i>
+                <i className="fa fa-star" aria-hidden="true"></i>
+                <i className="fa fa-star" aria-hidden="true"></i>
+                <i className="fa fa-star" aria-hidden="true"></i>
+                &nbsp;Als beste beoordeeld!&nbsp;
+                { /* this.printScores() */ }
+                { this.state.total }/10
             </div>
         );
     }
